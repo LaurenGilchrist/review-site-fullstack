@@ -14,6 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ReviewController.class)
@@ -25,6 +28,9 @@ public class ReviewControllerMockMVCTest {
 	
 	@MockBean
 	private ReviewRepository reviewRepo;
+	
+	@MockBean
+	private CategoryRepository categoryRepo;
 	
 	@MockBean
 	private TagRepository tagRepo;
@@ -56,15 +62,61 @@ public class ReviewControllerMockMVCTest {
 	}
 	@Test
 	public void shouldRouteToAllReviewView() throws Exception {
-		
+		mvc.perform(get("/show-reviews")).andExpect(status().isOk());
 	}
 	
 	@Test
 	public void shouldBeOkForSingleReview() throws Exception {
-		
+		long reviewId = 1;
+		when(reviewRepo.findById(reviewId)).thenReturn(Optional.of(review1));
+		mvc.perform(get("/review?id=1")).andExpect(status().isOk());
 	}
 	
 	@Test
 	public void shouldBeOkForAllReviews() throws Exception {
+		mvc.perform(get("/show-reviews")).andExpect(status().isOk());
+}
+	@Test
+	public void shouldRouteToSingleCategoryView()throws Exception {
+		long categoryId = 1;
+		when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category1));
+		mvc.perform(get("/category?id=1")).andExpect(view().name(is("categoryTemplate")));
+}
+	@Test
+	public void shouldRouteToAllCategoryView() throws Exception {
+		mvc.perform(get("/show-categories")).andExpect(status().isOk());
+	}
+	@Test
+	public void shouldBeOkForSingleCategory() throws Exception {
+		long categoryId = 1;
+		when(categoryRepo.findById(categoryId)).thenReturn(Optional.of(category1));
+		mvc.perform(get("/category?id=1")).andExpect(status().isOk());
+	}
+	@Test
+	public void shouldBeOkForAllCategories() throws Exception {
+		mvc.perform(get("/show-categories")).andExpect(status().isOk());
+}
+	@Test
+	public void shouldRouteToSingleTagView()throws Exception {
+		long tagId = 1;
+		when(tagRepo.findById(tagId)).thenReturn(Optional.of(tag1));
+		mvc.perform(get("/tag?id=1")).andExpect(view().name(is("tagTemplate")));
+		
+	}
+	@Test
+	public void shouldRouteToAllTagView() throws Exception {
+		mvc.perform(get("/show-tags")).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void shouldBeOkForSingleTag() throws Exception {
+		long tagId = 1;
+		when(tagRepo.findById(tagId)).thenReturn(Optional.of(tag1));
+		mvc.perform(get("/tag?id=1")).andExpect(status().isOk());
+	}
+	
+	@Test
+	public void shouldBeOkForAllTags() throws Exception {
+		mvc.perform(get("/show-tags")).andExpect(status().isOk());
 }
 }
