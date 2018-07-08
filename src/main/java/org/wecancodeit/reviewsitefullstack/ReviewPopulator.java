@@ -39,8 +39,8 @@ public class ReviewPopulator implements CommandLineRunner {
 		
 		reviewRepo.save(new Review("Dunkin Doughnuts", "So good 24-7", "/images/dunkin-donuts.jpg", coffee, hot, cold, nonAlcoholic));
 		reviewRepo.save(new Review("Starbucks", "A little pricey", "/images/starbucks.jpg", coffee, hot, cold, nonAlcoholic));
-		reviewRepo.save(new Review("Bud Light", "Much needed", "/images/BudLight.jpg", beer, cold, alcoholic));
-		reviewRepo.save(new Review("Nestea", "Refreshing", "/images/nestea.jpg", tea, cold, nonAlcoholic));
+		reviewRepo.save(new Review("Bud Light", "Much needed after long hours of coding!", "/images/BudLight.jpg", beer, cold, alcoholic));
+		reviewRepo.save(new Review("Nestea", "Refreshing at anytime", "/images/nestea.jpg", tea, cold, nonAlcoholic));
 		
 }
 }
