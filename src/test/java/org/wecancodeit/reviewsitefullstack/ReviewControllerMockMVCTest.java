@@ -62,7 +62,7 @@ public class ReviewControllerMockMVCTest {
 	}
 	@Test
 	public void shouldRouteToAllReviewView() throws Exception {
-		mvc.perform(get("/show-reviews")).andExpect(status().isOk());
+		mvc.perform(get("/reviews")).andExpect(status().isOk());
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ public class ReviewControllerMockMVCTest {
 	
 	@Test
 	public void shouldBeOkForAllReviews() throws Exception {
-		mvc.perform(get("/show-reviews")).andExpect(status().isOk());
+		mvc.perform(get("/reviews")).andExpect(status().isOk());
 }
 	@Test
 	public void shouldRouteToSingleCategoryView()throws Exception {
@@ -84,7 +84,7 @@ public class ReviewControllerMockMVCTest {
 }
 	@Test
 	public void shouldRouteToAllCategoryView() throws Exception {
-		mvc.perform(get("/show-categories")).andExpect(status().isOk());
+		mvc.perform(get("/categories")).andExpect(status().isOk());
 	}
 	@Test
 	public void shouldBeOkForSingleCategory() throws Exception {
@@ -94,8 +94,13 @@ public class ReviewControllerMockMVCTest {
 	}
 	@Test
 	public void shouldBeOkForAllCategories() throws Exception {
-		mvc.perform(get("/show-categories")).andExpect(status().isOk());
+		mvc.perform(get("/categories")).andExpect(status().isOk());
+		
 }
+	@Test
+	public void shouldRouteToAllCategories() throws Exception {
+		mvc.perform(get("/categories")).andExpect(view().name(is("categoriesTemplate")));
+	}
 	@Test
 	public void shouldRouteToSingleTagView()throws Exception {
 		long tagId = 1;
@@ -105,7 +110,7 @@ public class ReviewControllerMockMVCTest {
 	}
 	@Test
 	public void shouldRouteToAllTagView() throws Exception {
-		mvc.perform(get("/show-tags")).andExpect(status().isOk());
+		mvc.perform(get("/tags")).andExpect(status().isOk());
 	}
 	
 	@Test
@@ -117,6 +122,6 @@ public class ReviewControllerMockMVCTest {
 	
 	@Test
 	public void shouldBeOkForAllTags() throws Exception {
-		mvc.perform(get("/show-tags")).andExpect(status().isOk());
+		mvc.perform(get("/tags")).andExpect(status().isOk());
 }
 }

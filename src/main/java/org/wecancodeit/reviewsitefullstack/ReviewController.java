@@ -55,24 +55,24 @@ public class ReviewController {
 		}
 		throw new TagNotFoundException();
 	}
-	@RequestMapping("/show-reviews")
+	@RequestMapping("/reviews")
 	public String findAllReviews(Model model) {
-	 model.addAttribute("reviews", reviewRepo.findAll());
-	 return ("reviews");
+	 model.addAttribute("reviewsModel", reviewRepo.findAll());
+	 return ("reviewsTemplate");
 		
 	}
 	
-	@RequestMapping("/show-categories")
+	@RequestMapping("/categories")
 	public String findAllCategories(Model model) {
-		model.addAttribute("categories", categoryRepo.findAll());
-		return ("categories");
+		model.addAttribute("categoriesModel", categoryRepo.findAll());
+		return ("categoriesTemplate");
 		
 	}
 	
-	@RequestMapping("/show-tags")
+	@RequestMapping("/tags")
 	public String findAllTags(Model model) {
-		model.addAttribute("tags", tagRepo.findAll());
-		return ("tags");
+		model.addAttribute("tagsModel", tagRepo.findAll());
+		return ("tagsTemplate");
 		
 	}
 

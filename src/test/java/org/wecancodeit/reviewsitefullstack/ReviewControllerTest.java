@@ -89,7 +89,7 @@ public class ReviewControllerTest {
 		when(reviewRepo.findAll()).thenReturn(allReviews);
 		
 		underTest.findAllReviews(model);
-		verify(model).addAttribute("reviews", allReviews);
+		verify(model).addAttribute("reviewsModel", allReviews);
 		
 	}
 	
@@ -99,7 +99,7 @@ public class ReviewControllerTest {
 		when(categoryRepo.findAll()).thenReturn(allCategories);
 		
 		underTest.findAllCategories(model);
-		verify(model).addAttribute("categories", allCategories);
+		verify(model).addAttribute("categoriesModel", allCategories);
 		
 	}
 	
@@ -109,7 +109,7 @@ public class ReviewControllerTest {
 		when(tagRepo.findAll()).thenReturn(allTags);
 		
 		underTest.findAllTags(model);
-		verify(model).addAttribute("tags", allTags);
+		verify(model).addAttribute("tagsModel", allTags);
 	}
 	
 	
