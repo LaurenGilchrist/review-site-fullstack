@@ -25,6 +25,8 @@ public class ReviewPopulator implements CommandLineRunner {
 		tea = categoryRepo.save(tea);
 		Category beer = new Category("Beer");
 		beer = categoryRepo.save(beer);
+		Category vodka = new Category("Vodka");
+		vodka = categoryRepo.save(vodka);
 		Category wine = new Category("Wine");
 		wine = categoryRepo.save(wine);
 		
@@ -40,6 +42,7 @@ public class ReviewPopulator implements CommandLineRunner {
 		reviewRepo.save(new Review("Dunkin Doughnuts", "So good 24-7", "/images/dunkin-donuts.jpg", coffee, hot, cold, nonAlcoholic));
 		reviewRepo.save(new Review("Starbucks", "A little pricey", "/images/starbucks.jpg", coffee, hot, cold, nonAlcoholic));
 		reviewRepo.save(new Review("Bud Light", "Much needed after long hours of coding!", "/images/BudLight.jpg", beer, cold, alcoholic));
+		reviewRepo.save(new Review("Pinnacle Vodka", "Blueberry flavored is amazing when mixed with lemonade!! Mixing with orange juice, or sprite can spruce up the flavor!! Makes your worries go away.", "/images/vodka.jpg", vodka, cold, alcoholic));	
 		reviewRepo.save(new Review("Nestea", "Refreshing at anytime", "/images/nestea.jpg", tea, cold, nonAlcoholic));
 		
 }
