@@ -34,6 +34,9 @@ public class JpaMappingTest {
 	@Resource
 	private ReviewRepository reviewRepo;
 	
+	@Resource
+	private CommentRepository commentRepo;
+	
 	
 	@Test
 	public void shouldSaveAndLoadCategory() {
@@ -179,6 +182,53 @@ public class JpaMappingTest {
 		hot = result.get();
 		assertThat(hot.getReviews(), containsInAnyOrder(dunkin, starbucks));	
 		
+	}
+	
+	@Test
+	public void shouldEstablishCommentsOnOneReview() {
+		Category coffee = new Category("Coffee");
+		Tag hot = new Tag("Hot");
+		coffee = categoryRepo.save(coffee);
+		hot = tagRepo.save(hot);
+		Review review = new Review("New Review", "description of item", "images", coffee, hot);
+		review = reviewRepo.save(review);
+		long reviewId = review.getId();
+		
+		Comment testComment1 = new Comment("Author", review, "Comment1");
+		testComment1 = commentRepo.save(testComment1);
+		long testComment1Id = testComment1.getId();
+		
+		Comment testComment2 = new Comment("Author", review, "Comment2");
+		testComment2 = commentRepo.save(testComment2);
+		long testComment2Id = testComment2.getId();
+		
+		entityManager.flush();
+		entityManager.clear();
+		
+		Iterable<Comment> comments = commentRepo.findAll();
+		assertThat(comments, containsInAnyOrder(testComment1, testComment2));
+		
+		Optional<Comment> testComment1Result = commentRepo.findById(testComment1Id);
+		testComment1 = testComment1Result.get();
+		
+		Optional<Comment> testComment2Result = commentRepo.findById(testComment2Id);
+		testComment2 = testComment2Result.get();
+		
+		Optional<Review> reviewResult = reviewRepo.findById(reviewId);
+		review = reviewResult.get();
+		
+		assertThat(testComment1.getAuthor(), is("Author"));
+		assertThat(testComment2.getAuthor(), is("Author"));
+		assertThat(testComment1.getReview(), is(review));
+		assertThat(testComment2.getReview(), is(review));
+		assertThat(review.getComments(), containsInAnyOrder(testComment1, testComment2));
+		
+		
+		
+		
+		
+				
+				
 	}
 	
 	

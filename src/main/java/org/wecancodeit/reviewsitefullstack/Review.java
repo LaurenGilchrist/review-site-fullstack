@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Review {
@@ -24,15 +25,9 @@ public class Review {
 	private Category beverage;
 	@ManyToMany
 	private Collection<Tag>tags;
+	@OneToMany(mappedBy = "review")
+	private Collection<Comment> comments;
 
-	public Review(String name, String description, String image, Category beverage, Tag...tags) {
-		this.name =name;
-		this.description = description;
-		this.image = image;
-		this.beverage = beverage;
-		this.tags = new HashSet<>(Arrays.asList(tags));
-	}
-	
 	public Review() {
 		
 	}
@@ -64,7 +59,26 @@ public class Review {
 		return image;
 	}
 
+	public void addTag(Tag newTag) {
+		tags.add(newTag);
+	}
+		
+    public void deleteTag(Tag tagToDelete) {
+		tags.remove(tagToDelete);
+			
+	}
+    public Collection<Comment> getComments() {
+    	return comments;
+    }
 
+    public Review(String name, String description, String image, Category beverage, Tag...tags) {
+    	this.name =name;
+    	this.description = description;
+    	this.image = image;
+    	this.beverage = beverage;
+    	this.tags = new HashSet<>(Arrays.asList(tags));
+    }
+    
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,6 +100,9 @@ public class Review {
 			return false;
 		return true;
 	}
+
+
+
 
 	
 }

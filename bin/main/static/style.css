@@ -1,0 +1,18 @@
+body {
+	border-style: solid;
+    border-color: coral;
+    border-width: 15px;
+    padding: 15px;
+    text-align: center;
+    background-color: #f8c379;
+}
+
+h2 {
+	font-family: 'Merienda', cursive, serif;
+}
+
+img {
+	height: 300px;
+	width: 500px;
+}
+}

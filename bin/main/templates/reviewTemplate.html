@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
 	<title>reviews</title>
 </head>
 
@@ -21,6 +23,49 @@
 	 <div th:each="tag: ${review.tags}">
 	 	<a th:href="@{/tag(id=${tag.id})}" th:text="${tag.description}"></a>
 	 </div>
+	 
+	 <form method = "POST">
+	 	<input name="reviewId" type="hidden" th:value="${review.id}"/>
+	 	<input type="text" name = "tagName" />
+	 	<button th:formaction="@{/add-tag}">add tag</button>
+	 </form>
+	 
+	 <form method = "POST">
+	 <input name="reviewId" type="hidden" th:value="${review.id}"/>
+	<!--  <button id="x" name="tagId" th:value="${tag.id}" th:formation="@{/delete-tag-button}">&times;</button> -->
+	 </form>
+	 
+	
+	
+	 <div class="add-comment">
+	 <form method = "POST">
+	 	<section>
+	 		<label>Your Name</label>
+	 		<input type="text" name="author"/>	 	
+	 	</section>
+	 	<section>
+	 		<label>Was this review helpful?</label>
+	 		<input type="text" name="content"/>
+	 	</section>
+	 	<section>
+	 		<input type="hidden" th:value="${reviewsModel.id}" name="reviewId"/>
+	 	</section>
+	 	<section>
+	 		<input type="text" name = "content" />
+	 		<button th:formaction ="@{/add-comment}">Add Comment</button>
+	 	</section>	
+	 </form>
+	 
+	 
+	 <div th:each="comment: ${reviewsModel.comments}">
+	 	<h4><span th:text="${comment.author}">Commenter</span>says...</h4>
+	 	<p th:text="${comment.content}"></p>
+	 </div>
+	 
+	 </div>
+	
+	</div>
+	</form>
 	 
 	 <a href="http://localhost:8080/reviews">Back to home</a>
         
