@@ -17,6 +17,7 @@ public class TagController {
 	@Resource
 	ReviewRepository reviewRepo;
 	
+	//Can add tag with HTML forms
 	@RequestMapping("/add-tag")
 	public String addTag(@RequestParam(value="reviewId") Long reviewId, String tagName) {
 		Tag newTag = tagRepo.findByDescriptionIgnoreCase(tagName);
@@ -33,19 +34,20 @@ public class TagController {
 		}
 		return "redirect:/review?id=" + reviewId;
 }
-
-	@RequestMapping("delete-tag-button")
-	public String deleteTagButton(@RequestParam Long tagId, @RequestParam Long reviewId) {
-		Optional<Tag> tagToDeleteResult = tagRepo.findById(tagId);
-		Tag tagToDelete = tagToDeleteResult.get();
+	
+	//can Remove Tag with HTML forms
+	@RequestMapping("/remove-tag-button")
+	public String removeTagButton(@RequestParam Long tagId, @RequestParam Long reviewId) {
+		Optional<Tag> tagToRemoveResult = tagRepo.findById(tagId);
+		Tag tagToRemove = tagToRemoveResult.get();
 		
 		Optional<Review> reviewResult = reviewRepo.findById(reviewId);
 		Review review = reviewResult.get();
 		
-		review.deleteTag(tagToDelete);
+		review.removeTag(tagToRemove);
 		reviewRepo.save(review);
 		
-		return "redirect:/review?id=" + reviewId;
+		return "redirect:/review?id=" + reviewId;  
 		
 }	
 }

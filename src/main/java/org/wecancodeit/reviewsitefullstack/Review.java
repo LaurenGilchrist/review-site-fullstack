@@ -21,10 +21,13 @@ public class Review {
 	private String name;
 	private String description;
 	private String image;
+	
 	@ManyToOne
 	private Category beverage;
+	
 	@ManyToMany
 	private Collection<Tag>tags;
+	
 	@OneToMany(mappedBy = "review")
 	private Collection<Comment> comments;
 
@@ -58,13 +61,13 @@ public class Review {
 	public String getImage() {
 		return image;
 	}
-
+	//allowing the collection to add this tag we created in our form
 	public void addTag(Tag newTag) {
 		tags.add(newTag);
 	}
-		
-    public void deleteTag(Tag tagToDelete) {
-		tags.remove(tagToDelete);
+	//allowing the collection to have a tag removed	
+    public void removeTag(Tag tagToRemove) {
+		tags.remove(tagToRemove);
 			
 	}
     public Collection<Comment> getComments() {
@@ -100,9 +103,6 @@ public class Review {
 			return false;
 		return true;
 	}
-
-
-
 
 	
 }

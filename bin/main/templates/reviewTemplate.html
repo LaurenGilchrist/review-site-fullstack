@@ -24,48 +24,53 @@
 	 	<a th:href="@{/tag(id=${tag.id})}" th:text="${tag.description}"></a>
 	 </div>
 	 
+	
 	 <form method = "POST">
 	 	<input name="reviewId" type="hidden" th:value="${review.id}"/>
 	 	<input type="text" name = "tagName" />
-	 	<button th:formaction="@{/add-tag}">add tag</button>
+	 	<button th:formaction="@{/add-tag}">add tag with HTML forms</button>
 	 </form>
 	 
 	 <form method = "POST">
-	 <input name="reviewId" type="hidden" th:value="${review.id}"/>
-	<!--  <button id="x" name="tagId" th:value="${tag.id}" th:formation="@{/delete-tag-button}">&times;</button> -->
-	 </form>
+	 	<input name="reviewId" type="hidden" th:value="${review.id}"/>
+	 	<ul>
+	 		<li th:each="tag: ${review.tags}"><span th:text="${tag.description}"></span>
+	 		<button id="x" name="tagId" th:value="${tag.id}" th:formation="@{remove-tag-button}">&times;</button>
+	 	</ul>
+	 </form> 
 	 
 	
 	
 	 <div class="add-comment">
-	 <form method = "POST">
-	 	<section>
-	 		<label>Your Name</label>
-	 		<input type="text" name="author"/>	 	
-	 	</section>
-	 	<section>
-	 		<label>Was this review helpful?</label>
-	 		<input type="text" name="content"/>
-	 	</section>
-	 	<section>
-	 		<input type="hidden" th:value="${reviewsModel.id}" name="reviewId"/>
-	 	</section>
-	 	<section>
-	 		<input type="text" name = "content" />
-	 		<button th:formaction ="@{/add-comment}">Add Comment</button>
-	 	</section>	
+	 	<form method = "POST">
+	 		<section>
+	 			<label>Your Name</label>
+	 			<input type="text" name="author"/>	 	
+	 		</section>
+	 		
+	 		<section>
+	 			<label>Was this review helpful?</label>
+	 			<input type="text" name="content"/>
+	 		</section>
+	 		
+	 		<section>
+	 			<input type="hidden" th:value="${reviewsModel.id}" name="reviewId"/>
+	 		</section>
+	 		
+	 		<section>
+	 			<button th:formaction ="@{/add-comment}">Add Comment</button>
+	 		</section>	
 	 </form>
 	 
-	 
 	 <div th:each="comment: ${reviewsModel.comments}">
-	 	<h4><span th:text="${comment.author}">Commenter</span>says...</h4>
+	 	<h5><span th:text="${comment.author}">Commenter</span> says...</h5>
 	 	<p th:text="${comment.content}"></p>
 	 </div>
 	 
 	 </div>
 	
 	</div>
-	</form>
+	<!-- </form> -->
 	 
 	 <a href="http://localhost:8080/reviews">Back to home</a>
         
