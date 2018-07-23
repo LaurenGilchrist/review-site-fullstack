@@ -16,7 +16,7 @@ public class Tag {
 	
 	private String description;
 	
-	@ManyToMany(mappedBy = "tags")// we want to track reviews by tags
+	@ManyToMany(mappedBy="tags")// we want to track reviews by tags
 	private Collection<Review> reviews;
 
 	public Tag(String description) {
