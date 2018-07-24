@@ -6,7 +6,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -58,6 +60,43 @@ public class TagController {
 		model.addAttribute("tagsModel", tagRepo.findAll());
 		return "tagsAjax";
 	}
+	
+	
+	//Use Ajax to Add Tags to the Database
+	@RequestMapping(path = "/tags/{tagName}", method = RequestMethod.POST)	
+	public String AddTag(@PathVariable String tagName, Model model) {
+		Tag tagToAdd = tagRepo.findByDescriptionIgnoreCase(tagName);
+		if(tagToAdd == null) {
+			tagToAdd = new Tag(tagName);
+			tagRepo.save(tagToAdd);
+		}
+		model.addAttribute("tagsModel", tagRepo.findAll());
+		return "partials/tags-list-added";
+	}
+	
+	//Use Ajax to remove Tags from Database
+	@RequestMapping(path = "/tags/remove/{tagName}", method = RequestMethod.POST)
+	public String RemoveTag(@PathVariable String tagName, Model model) {
+		
+		Tag tagToDelete = tagRepo.findByDescriptionIgnoreCase(tagName);
+		if(tagRepo.findByDescriptionIgnoreCase(tagName)!= null) {
+			for(Review review: tagToDelete.getReviews()) {
+				review.removeTag(tagToDelete);
+				reviewRepo.save(review);
+			}
+		}				
+		tagRepo.delete(tagToDelete);		
+		model.addAttribute("tagsModel", tagRepo.findAll());				
+		return "partials/tags-list-removed";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
