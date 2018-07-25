@@ -42,8 +42,8 @@ public class CommentController {
 		}
 	
 	//Use Ajax to remove comments from Database
-		@RequestMapping("/remove-comment")
-		public String RemoveComment(@PathVariable String author, Long reviewId) {
+		@RequestMapping("remove-comment")
+		public String RemoveComment(String author, Long reviewId) {
 			
 			Comment commentToDelete = commentRepo.findByAuthor(author);		
 			commentRepo.delete(commentToDelete);		
