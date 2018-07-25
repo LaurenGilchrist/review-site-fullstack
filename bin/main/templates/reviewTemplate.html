@@ -68,7 +68,12 @@
 	 </div>
 	 
 	 </div>
-	
+	<form method = "POST">
+	 	<input name="reviewId" type="hidden" th:value="${review.id}"/>
+	 	<input type="text" name = "author" />
+	 	<button th:formaction="@{/remove-comment}">remove comment by author name</button>
+	 </form>
+	 
 	</div>
 	
 	 
